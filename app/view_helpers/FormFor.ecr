@@ -1,0 +1,33 @@
+<%
+    # parameters of this helper
+    # model : model to fetch data from
+    # model_name : model_name to insert to form link and field names
+    # fields : array of tuples of {String|Symbol (field), String|Symbol (type)}
+%>
+<% if model.new_record? %>
+    <form  method="post" action="/<%= model_name.to_s.underscore %>">
+<% else %>
+    <form  method="post" action="/<%= model_name.to_s.underscore %>/<%= model.id %>">
+<% end %>
+    <input type="hidden" name="_csrf" value="<%= csrf %>" >
+    <% unless model.new_record? %>
+        <input type="hidden" name="_method" value="put">
+    <% end %>
+    <% fields.each do |field| %>
+        <div>
+            <label for="<%= model_name.to_s.underscore %>_<%= field[0].to_s.to_s.underscore %>"><%= field[0].to_s.camelcase %></label>
+            <% if field[1].to_s == "number" %>
+                <input value="<%= model.attribute(field[0].to_s.underscore)%>" type="number" name="<%= model_name.to_s.underscore %>[<%= field[0].to_s.to_s.underscore %>]" id="<%= model_name.to_s.underscore %>_<%= field[0].to_s.to_s.underscore %>">
+            <% elsif field[1].to_s == "string" || field[1].to_s == "float" %>
+                <input value="<%= model.attribute(field[0].to_s.underscore)%>" type="text" name="<%= model_name.to_s.underscore %>[<%= field[0].to_s.to_s.underscore %>]" id="<%= model_name.to_s.underscore %>_<%= field[0].to_s.to_s.underscore %>">
+            <% elsif field[1].to_s == "text" %>
+                <textarea type="text" name="<%= model_name.to_s.underscore %>[<%= field[0].to_s.to_s.underscore %>]" id="<%= model_name.to_s.underscore %>_<%= field[0].to_s.to_s.underscore %>"><%= model.attribute(field[0].to_s.underscore).to_s.strip%></textarea>
+            <% elsif field[1].to_s == "datetime" %>
+                <input value="<%= model.attribute(field[0].to_s.underscore) %>" type="datetime-local" name="<%= model_name.to_s.underscore %>[<%= field[0].to_s.to_s.underscore %>]" id="<%= model_name.to_s.underscore %>_<%= field[0].to_s.to_s.underscore %>">
+            <% elsif field[1].to_s == "reference" %>
+                <input value="<%= model.attribute(field[0].to_s.underscore + %(_id)) %>" type="datetime-local" name="<%= model_name.to_s.underscore %>[<%= field[0].to_s.to_s.underscore + %(_id) %>]" id="<%= model_name.to_s.underscore %>_<%= field[0].to_s.to_s.underscore %>">
+            <% end %>
+        </div>
+    <% end %>
+    <input type="submit" value="<%= model.new_record? ? %(Create) : %(Update) %> <%= model_name.camelcase %>">
+</form>

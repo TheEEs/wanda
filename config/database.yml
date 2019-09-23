@@ -1,0 +1,15 @@
+default: &default
+  adapter: sqlite3
+
+development:
+  <<: *default
+  host: './db'
+  db: wanda_development.sqlite3
+
+test:
+  <<: *default
+  db: wanda_test
+
+production:
+  <<: *default
+  db: wanda_produciton

@@ -1,0 +1,6 @@
+/docs/
+/lib/
+/.shards/
+/js/node_modules
+*.dwarf
+/.editorconfig
