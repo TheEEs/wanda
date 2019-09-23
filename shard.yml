@@ -10,5 +10,9 @@ targets:
 
 crystal: 0.30.1
 
+dependencies:
+  wanda:
+    github: TheEEs/wanda-engine
+    version: 0.1.2
 
 license: MIT
