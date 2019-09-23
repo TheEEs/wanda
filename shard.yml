@@ -10,9 +10,5 @@ targets:
 
 crystal: 0.30.1
 
-dependencies:
-  wanda: 
-    path: /home/trandat/Desktop/wanda-engine
-    version: 0.1.1
 
 license: MIT
